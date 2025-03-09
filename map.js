@@ -20,12 +20,13 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     map.setView(e.latlng,14);
 // })
 
+if ("geolocation" in navigator) {
+  // Start watching the user's position
   const watchId = navigator.geolocation.watchPosition(
     (position) => {
       // Success Callback: handle updated position data
-      
-         mrkCurrentLocation=L.circle(position.latlng,{radius:positionposition.coords.accuracy/2}).addTo(map);
-         map.setView(e.latlng,14);
+
+      //console.log("Accuracy:", position.coords.accuracy);
       // Here, you can update a map marker, send data to your backend, etc.
     },
     (error) => {
@@ -34,11 +35,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     },
     {
       enableHighAccuracy: true, // Use GPS for higher accuracy if available
-      timeout: 1000000000,           // Maximum time (ms) before error callback is invoked
+      timeout: 10000000,           // Maximum time (ms) before error callback is invoked
       maximumAge: 5000          // Accept a cached position up to 5 seconds old
     }
   );
 
+  // To stop tracking, use:
+  // navigator.geolocation.clearWatch(watchId);
+} else {
+  console.log("Geolocation is not supported by your browser.");
+}
 // map.on('locationerror',function(e){
 //     console.log(e);
 //     //alert("Location was not found");
