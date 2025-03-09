@@ -19,14 +19,25 @@ map.locate({setView: true, maxZoom: 16});
 //     mrkCurrentLocation=L.circle(e.latlng,{radius:e.accuracy/2}).addTo(map);
 //     map.setView(e.latlng,14);
 // })
-id = navigator.geolocation.watchPosition(success, error, options);
 
-function success(pos) {
-  const crd = pos.coords;
-    mrkCurrentLocation=L.circle(crd.latlng,{radius:crd.accuracy/2}).addTo(map);
-    map.setView(crd.latlng,14);
-}
-
+  const watchId = navigator.geolocation.watchPosition(
+    (position) => {
+      // Success Callback: handle updated position data
+      
+         mrkCurrentLocation=L.circle(position.latlng,{radius:position.accuracy/2}).addTo(map);
+         map.setView(e.latlng,14);
+      // Here, you can update a map marker, send data to your backend, etc.
+    },
+    (error) => {
+      // Error Callback: handle errors
+      console.error("Error tracking position:", error);
+    },
+    {
+      enableHighAccuracy: true, // Use GPS for higher accuracy if available
+      timeout: 1000000000,           // Maximum time (ms) before error callback is invoked
+      maximumAge: 5000          // Accept a cached position up to 5 seconds old
+    }
+  );
 
 // map.on('locationerror',function(e){
 //     console.log(e);
