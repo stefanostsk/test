@@ -7,19 +7,26 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 map.locate({setView: true, maxZoom: 16});
 
-setInterval(function(){
-    map.locate();
-},3000 )
+// setInterval(function(){
+//     map.locate();
+// },3000 )
 
 // //map.locate()
+// map.on('locationfound',function(e){
+//     // if (mrkCurrentLocation){
+//     //     mrkCurrentLocation.remove();
+//     // }
+//     mrkCurrentLocation=L.circle(e.latlng,{radius:e.accuracy/2}).addTo(map);
+//     map.setView(e.latlng,14);
+// })
+id = navigator.geolocation.watchPosition(success, error, options);
 
-map.on('locationfound',function(e){
-    // if (mrkCurrentLocation){
-    //     mrkCurrentLocation.remove();
-    // }
-    mrkCurrentLocation=L.circle(e.latlng,{radius:e.accuracy/2}).addTo(map);
-    map.setView(e.latlng,14);
-})
+function success(pos) {
+  const crd = pos.coords;
+    mrkCurrentLocation=L.circle(crd.latlng,{radius:crd.accuracy/2}).addTo(map);
+    map.setView(crd.latlng,14);
+}
+
 
 // map.on('locationerror',function(e){
 //     console.log(e);
