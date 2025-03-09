@@ -5,46 +5,21 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-//map.locate({setView: true, maxZoom: 16});
+map.locate({setView: true, maxZoom: 16});
 
-// setInterval(function(){
-//     map.locate();
-// },3000 )
+setInterval(function(){
+    map.locate();
+},3000 )
 
-// //map.locate()
-// map.on('locationfound',function(e){
-//     // if (mrkCurrentLocation){
-//     //     mrkCurrentLocation.remove();
-//     // }
-//     mrkCurrentLocation=L.circle(e.latlng,{radius:e.accuracy/2}).addTo(map);
-//     map.setView(e.latlng,14);
-// })
+//map.locate()
+map.on('locationfound',function(e){
+    // if (mrkCurrentLocation){
+    //     mrkCurrentLocation.remove();
+    // }
+    mrkCurrentLocation=L.circle(e.latlng,{radius:e.accuracy/2}).addTo(map);
+    map.setView(e.latlng,14);
+})
 
-if ("geolocation" in navigator) {
-  // Start watching the user's position
-  const watchId = navigator.geolocation.watchPosition(
-    (position) => {
-      // Success Callback: handle updated position data
-
-      //console.log("Accuracy:", position.coords.accuracy);
-      // Here, you can update a map marker, send data to your backend, etc.
-    },
-    (error) => {
-      // Error Callback: handle errors
-      console.error("Error tracking position:", error);
-    },
-    {
-      enableHighAccuracy: true, // Use GPS for higher accuracy if available
-      timeout: 10000000,           // Maximum time (ms) before error callback is invoked
-      maximumAge: 5000          // Accept a cached position up to 5 seconds old
-    }
-  );
-
-  // To stop tracking, use:
-  // navigator.geolocation.clearWatch(watchId);
-} else {
-  console.log("Geolocation is not supported by your browser.");
-}
 // map.on('locationerror',function(e){
 //     console.log(e);
 //     //alert("Location was not found");
