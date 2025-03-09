@@ -9,7 +9,7 @@ map.locate({setView: true, maxZoom: 16});
 
 setInterval(function(){
     map.locate();
-},7000 )
+},3000 )
 
 // //map.locate()
 
