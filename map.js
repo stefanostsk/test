@@ -5,7 +5,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-map.locate({setView: true, maxZoom: 16});
+//map.locate({setView: true, maxZoom: 16});
 
 // setInterval(function(){
 //     map.locate();
@@ -24,7 +24,7 @@ map.locate({setView: true, maxZoom: 16});
     (position) => {
       // Success Callback: handle updated position data
       
-         mrkCurrentLocation=L.circle(position.latlng,{radius:position.accuracy/2}).addTo(map);
+         mrkCurrentLocation=L.circle(position.latlng,{radius:positionposition.coords.accuracy/2}).addTo(map);
          map.setView(e.latlng,14);
       // Here, you can update a map marker, send data to your backend, etc.
     },
